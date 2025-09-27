@@ -44,8 +44,23 @@ We designed a relational database with three related tables:
 
 Primary keys uniquely identify each record, and foreign keys enforce referential integrity.  
 Oracle **sequences** automatically generate IDs for each table.
+## Step 7: References  
 
-### SQL Scripts
+1. Oracle. [Oracle Database SQL Language Reference 19c – Analytic (Window) Functions](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Analytic-Functions.html)  
+2. Oracle. [Oracle Database SQL Language Reference – CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html)  
+3. Oracle Live SQL. [Sample Scripts – Analytic Functions](https://livesql.oracle.com/apex/livesql/file/content_DN4ZHY8Z1KE6Y5H4XG8Z8ZZST.html)  
+4. TutorialsPoint. [PL/SQL – Window (Analytic) Functions](https://www.tutorialspoint.com/plsql/plsql_analytic_functions.htm)  
+5. SQLShack. [Introduction to SQL Window Functions](https://www.sqlshack.com/introduction-to-sql-window-functions/)  
+6. Mode Analytics. [How to Use Window Functions](https://mode.com/sql-tutorial/sql-window-functions/)  
+7. Towards Data Science. [How to Use NTILE for Customer Segmentation](https://towardsdatascience.com/how-to-use-ntile-in-sql-for-customer-segmentation-3b64547363fb)  
+8. Business News Daily. [Retail Sales Trends in 2024](https://www.businessnewsdaily.com/)  
+9. Harvard Business Review. [Customer Loyalty Programs That Work](https://hbr.org/)  
+10. Kaggle. [Retail Sales Datasets and Analytics Discussion](https://www.kaggle.com/)  
+
+**Integrity Statement:**  
+All sources were properly cited. Implementations and analysis represent original work. No AI-generated content was copied without attribution or adaptation.
+
+### SQL Scripts used
 
 ```sql
 -- Create tables
@@ -162,5 +177,7 @@ SELECT
 FROM transactions t
 JOIN customers c ON t.customer_id = c.customer_id
 GROUP BY c.customer_id, c.name, c.region;
+
+
 
 
