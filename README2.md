@@ -4,7 +4,7 @@ This repository contains the PL/SQL Window Functions Mastery Project for the cou
 ## Author
 **Name:** CYIZERE SIBORUREMA Elie  
 **ID:** 27492  
-**N.B.:** [Click here to view each step performed from this PL/SQL Window Function for our Coffee Retail Company](word-document/)
+**N.B.:** [Click here to view each step performed from this PL/SQL Window Function for our Coffee Retail Company](word-document)
 here you will find the word document containg each step performed  with scripts and screenshoot and  their outcome and interpretation for each step asked 
 
 ---
