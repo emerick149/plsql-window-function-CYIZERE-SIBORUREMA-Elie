@@ -94,3 +94,69 @@ INSERT INTO transactions (transaction_id, customer_id, product_id, sale_date, am
 VALUES (transactions_seq.NEXTVAL, 2, 2, DATE '2024-01-20', 500000);
 
 COMMIT;
+
+
+
+ /* ======== STEP 4: WINDOW FUNCTION IMPLEMENTATIONS ======== */
+
+-- 4.1 Ranking – Top N Customers by Revenue
+SELECT 
+  c.customer_id,
+  c.name,
+  c.region,
+  SUM(t.amount) AS total_revenue,
+  ROW_NUMBER() OVER(ORDER BY SUM(t.amount) DESC) AS row_num,
+  RANK()       OVER(ORDER BY SUM(t.amount) DESC) AS rank_num,
+  DENSE_RANK() OVER(ORDER BY SUM(t.amount) DESC) AS dense_rank_num,
+  PERCENT_RANK() OVER(ORDER BY SUM(t.amount) DESC) AS percent_rank
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+GROUP BY c.customer_id, c.name, c.region;
+
+-- 4.2 Aggregate – Running Totals and Trends
+SELECT 
+  c.region,
+  TO_CHAR(t.sale_date,'YYYY-MM') AS month,
+  SUM(t.amount) AS monthly_sales,
+  SUM(SUM(t.amount)) OVER(
+        PARTITION BY c.region 
+        ORDER BY TO_CHAR(t.sale_date,'YYYY-MM')
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total,
+  AVG(SUM(t.amount)) OVER(
+        PARTITION BY c.region 
+        ORDER BY TO_CHAR(t.sale_date,'YYYY-MM')
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg_3months,
+  MIN(SUM(t.amount)) OVER(PARTITION BY c.region) AS min_month,
+  MAX(SUM(t.amount)) OVER(PARTITION BY c.region) AS max_month
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+GROUP BY c.region, TO_CHAR(t.sale_date,'YYYY-MM');
+
+-- 4.3 Navigation – Period-to-Period Growth
+SELECT 
+  c.region,
+  TO_CHAR(t.sale_date,'YYYY-MM') AS month,
+  SUM(t.amount) AS monthly_sales,
+  LAG(SUM(t.amount)) OVER(
+        PARTITION BY c.region 
+        ORDER BY TO_CHAR(t.sale_date,'YYYY-MM')) AS prev_month_sales,
+  (SUM(t.amount) - 
+   LAG(SUM(t.amount)) OVER(PARTITION BY c.region ORDER BY TO_CHAR(t.sale_date,'YYYY-MM'))) /
+   NULLIF(LAG(SUM(t.amount)) OVER(PARTITION BY c.region ORDER BY TO_CHAR(t.sale_date,'YYYY-MM')),0) * 100 AS growth_percent
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+GROUP BY c.region, TO_CHAR(t.sale_date,'YYYY-MM');
+
+-- 4.4 Distribution – Customer Segmentation
+SELECT 
+  c.customer_id,
+  c.name,
+  c.region,
+  SUM(t.amount) AS total_spent,
+  NTILE(4) OVER(ORDER BY SUM(t.amount) DESC) AS spending_quartile,
+  CUME_DIST() OVER(ORDER BY SUM(t.amount) DESC) AS cumulative_distribution
+FROM transactions t
+JOIN customers c ON t.customer_id = c.customer_id
+GROUP BY c.customer_id, c.name, c.region;
+
+
