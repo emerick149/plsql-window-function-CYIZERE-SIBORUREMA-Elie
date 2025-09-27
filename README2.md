@@ -44,7 +44,7 @@ We designed a relational database with three related tables:
 
 Primary keys uniquely identify each record, and foreign keys enforce referential integrity.  
 Oracle **sequences** automatically generate IDs for each table.
-## Step 7: References  
+##  References  
 
 1. Oracle. [Oracle Database SQL Language Reference 19c – Analytic (Window) Functions](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Analytic-Functions.html)  
 2. Oracle. [Oracle Database SQL Language Reference – CREATE TABLE](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html)  
