@@ -6,7 +6,7 @@ This repository contains the PL/SQL Window Functions Mastery Project for the cou
 **ID:** 27492  
 **N.B.:** [Click here to view each step performed from this PL/SQL Window Function for our Coffee Retail Company](https://github.com/emerick149/plsql-window-function-CYIZERE-SIBORUREMA-Elie/tree/main/word%20document)
 
-here you will find the word document containg each step performed  with scripts and screenshoot and  their outcome and interpretation for each step asked 
+here you will find the word document containg each step performed  with scripts and screenshoot,ER Diagrams and  their outcome and interpretation for each step asked 
 
 ---
 
